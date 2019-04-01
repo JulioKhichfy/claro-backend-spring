@@ -1,6 +1,5 @@
 package com.claro.julio.domain;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class CellPhoneDevice implements Serializable {
@@ -17,17 +18,19 @@ public class CellPhoneDevice implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String model;
-	private double price;
+	private Double price;
 	private String code;
 	private String brand;
 	private String photo;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date date;
 	
 	public CellPhoneDevice() {
 		
 	}
 	
-	public CellPhoneDevice(Integer id,double price,String code,String model,String brand, String photo,Date date) {
+	public CellPhoneDevice(Integer id,Double price,String code,String model,String brand, String photo,Date date) {
 		super();
 		this.id= id;
 		this.model= model;
@@ -50,10 +53,10 @@ public class CellPhoneDevice implements Serializable {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public String getCode() {

@@ -1,14 +1,17 @@
 package com.claro.julio.resources;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.claro.julio.domain.CellPhoneDevice;
 import com.claro.julio.services.CellPhoneDeviceService;
@@ -21,18 +24,23 @@ public class CellPhoneDeviceResource {
 	private CellPhoneDeviceService service;
 	
 	@RequestMapping(value="/mobile", method=RequestMethod.POST)
-	public String insertCellPhone() {
-		return "";
+	public ResponseEntity<Void> insertCellPhone(@RequestBody CellPhoneDevice cell) {
+		cell = service.insert(cell);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(cell.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+		
 	}
 	
 	@RequestMapping(value="/mobile", method=RequestMethod.GET)
 	public List<CellPhoneDevice> getAllCellPhone() {
-		return new ArrayList<CellPhoneDevice>();
+		List<CellPhoneDevice>list = service.findAll();
+		return list;
 	}
 	
 	@RequestMapping(value="/mobile/{id}", method=RequestMethod.GET)
-	public  ResponseEntity<?> getCellPhoneByCode(@PathVariable Integer id) {
-		CellPhoneDevice obj = service.buscar(id);
+	public  ResponseEntity<CellPhoneDevice> getCellPhoneByCode(@PathVariable Integer id) {
+		CellPhoneDevice obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
