@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -25,7 +26,7 @@ public class CellPhoneDevice implements Serializable {
 	private Integer id;
 	
 	@NotEmpty(message="Preenchimento obrigatório")
-	@Length(min=1, max=80, message="O tamanho deve ser entre 1 e 40 caracteres")
+	@Length(min=1, max=40, message="O tamanho deve ser entre 1 e 40 caracteres")
 	private String model;
 	
 	@DecimalMin("0.01")
@@ -38,9 +39,11 @@ public class CellPhoneDevice implements Serializable {
 	@NotEmpty(message="Preenchimento obrigatório")
 	private String brand;
 	
+	@NotNull
 	private String photo;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
+	@NotNull
 	private Date date;
 	
 	public CellPhoneDevice() {

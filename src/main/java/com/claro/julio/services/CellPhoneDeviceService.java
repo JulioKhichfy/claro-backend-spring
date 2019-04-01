@@ -3,8 +3,11 @@ package com.claro.julio.services;
 import java.util.List;
 import java.util.Optional;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.claro.julio.domain.CellPhoneDevice;
 import com.claro.julio.repositories.CellPhoneDeviceRepository;
@@ -27,6 +30,7 @@ public class CellPhoneDeviceService {
 		return repo.findAll();
 	}
 
+	@Transactional
 	public CellPhoneDevice insert(CellPhoneDevice cell) {
 		cell.setId(null);
 		return repo.save(cell);
