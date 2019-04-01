@@ -26,8 +26,11 @@ public class CellPhoneDeviceResource {
 	@RequestMapping(value="/mobile", method=RequestMethod.POST)
 	public ResponseEntity<Void> insertCellPhone(@RequestBody CellPhoneDevice cell) {
 		cell = service.insert(cell);
+		//retorno da nova URI do recurso criado
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(cell.getId()).toUri();
+		//buildAndExpand pede o id do novo celular criado.
+		//TODO:devo usar o code e não o id
 		return ResponseEntity.created(uri).build();
 		
 	}
@@ -42,6 +45,19 @@ public class CellPhoneDeviceResource {
 	public  ResponseEntity<CellPhoneDevice> getCellPhoneByCode(@PathVariable Integer id) {
 		CellPhoneDevice obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@RequestMapping(value="/mobile/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody CellPhoneDevice obj, @PathVariable Integer id) {
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/mobile/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }

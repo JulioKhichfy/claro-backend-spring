@@ -18,17 +18,26 @@ public class CellPhoneDeviceService {
 
 	public CellPhoneDevice find(Integer id) {
 		Optional<CellPhoneDevice> cell = repo.findById(id);
-		//capturada por resources - @ControllerAdvice - 
+		// capturada por resources - @ControllerAdvice -
 		return cell.orElseThrow(() -> new ObjectNotFoundException(
-				"Celular não encontrado: "+ id +", Tipo: " + CellPhoneDevice.class.getName()));
+				"Celular não encontrado: " + id + ", Tipo: " + CellPhoneDevice.class.getName()));
 	}
-	
-	public List<CellPhoneDevice> findAll(){
+
+	public List<CellPhoneDevice> findAll() {
 		return repo.findAll();
 	}
-	
+
 	public CellPhoneDevice insert(CellPhoneDevice cell) {
 		cell.setId(null);
 		return repo.save(cell);
+	}
+
+	public CellPhoneDevice update(CellPhoneDevice obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
+
+	public void delete(Integer id) {
+		repo.deleteById(id);
 	}
 }
