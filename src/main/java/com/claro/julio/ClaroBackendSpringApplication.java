@@ -1,5 +1,6 @@
 package com.claro.julio;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class ClaroBackendSpringApplication implements CommandLineRunner{
 		
 		CellPhoneDevice cpv1 = new CellPhoneDevice(
 				null,
-				1990.00,
+				new BigDecimal("1990.00"),
 				"653d9688-af26-4ff1-b1a6-58c474fba27f",
 				"Moto G5 Plus",
 				"Motorola",
@@ -41,7 +42,7 @@ public class ClaroBackendSpringApplication implements CommandLineRunner{
 		
 		CellPhoneDevice cpv2 = new CellPhoneDevice(
 				null,
-				3990.00,
+				new BigDecimal("3990.00"),
 				"d10e528f-9f2c-4271-9dc1-967bef224695",
 				"IPhone 7 Plus",
 				"Apple",
@@ -50,7 +51,7 @@ public class ClaroBackendSpringApplication implements CommandLineRunner{
 		
 		CellPhoneDevice cpv3 = new CellPhoneDevice(
 				null,
-				699.00,
+				new BigDecimal("699.00"),
 				"ba59f136-9d1f-42bf-8f4a-826dca8dde5b​",
 				"J7",
 				"Samsung",

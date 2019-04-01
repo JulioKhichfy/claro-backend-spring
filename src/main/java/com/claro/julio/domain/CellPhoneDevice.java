@@ -1,12 +1,15 @@
 package com.claro.julio.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
@@ -22,11 +25,19 @@ public class CellPhoneDevice implements Serializable {
 	private Integer id;
 	
 	@NotEmpty(message="Preenchimento obrigatório")
-	@Length(min=1, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
+	@Length(min=1, max=80, message="O tamanho deve ser entre 1 e 40 caracteres")
 	private String model;
-	private Double price;
+	
+	@DecimalMin("0.01")
+	@Digits(integer=6, fraction=2)
+	private BigDecimal price;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String code;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String brand;
+	
 	private String photo;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
@@ -36,7 +47,7 @@ public class CellPhoneDevice implements Serializable {
 		
 	}
 	
-	public CellPhoneDevice(Integer id,Double price,String code,String model,String brand, String photo,Date date) {
+	public CellPhoneDevice(Integer id,BigDecimal price,String code,String model,String brand, String photo,Date date) {
 		super();
 		this.id= id;
 		this.model= model;
@@ -59,10 +70,10 @@ public class CellPhoneDevice implements Serializable {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public String getCode() {

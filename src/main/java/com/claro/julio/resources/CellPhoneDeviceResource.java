@@ -25,7 +25,7 @@ public class CellPhoneDeviceResource {
 	private CellPhoneDeviceService service;
 	
 	@RequestMapping(value="/mobile", method=RequestMethod.POST)
-	public ResponseEntity<Void> insertCellPhone(@RequestBody CellPhoneDevice cell) {
+	public ResponseEntity<Void> insertCellPhone(@Valid @RequestBody CellPhoneDevice cell) {
 		cell = service.insert(cell);
 		//retorno da nova URI do recurso criado
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -37,9 +37,9 @@ public class CellPhoneDeviceResource {
 	}
 	
 	@RequestMapping(value="/mobile", method=RequestMethod.GET)
-	public List<CellPhoneDevice> getAllCellPhone() {
+	public ResponseEntity<List<CellPhoneDevice>>  getAllCellPhone() {
 		List<CellPhoneDevice>list = service.findAll();
-		return list;
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@RequestMapping(value="/mobile/{id}", method=RequestMethod.GET)
