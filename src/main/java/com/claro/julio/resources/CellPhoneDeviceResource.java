@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class CellPhoneDeviceResource {
 	@Autowired
 	private CellPhoneDeviceService service;
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/mobile", method=RequestMethod.POST)
 	public ResponseEntity<Void> insertCellPhone(@Valid @RequestBody CellPhoneDevice cell) {
 		cell = service.insert(cell);
@@ -48,6 +50,7 @@ public class CellPhoneDeviceResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/mobile/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody CellPhoneDevice obj, @PathVariable Integer id) {
 		obj.setId(id);
@@ -55,6 +58,7 @@ public class CellPhoneDeviceResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value="/mobile/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);

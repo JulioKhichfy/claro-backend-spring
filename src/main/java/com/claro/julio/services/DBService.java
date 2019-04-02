@@ -5,11 +5,15 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.claro.julio.domain.UserSystem;
+import com.claro.julio.domain.enums.Perfil;
 import com.claro.julio.domain.CellPhoneDevice;
+import com.claro.julio.repositories.UserSystemRepository;
 import com.claro.julio.repositories.CellPhoneDeviceRepository;
 
 @Service
@@ -18,9 +22,39 @@ public class DBService {
 	@Autowired
 	private CellPhoneDeviceRepository cellPhoneDeviceRepository;
 
+	@Autowired
+	private UserSystemRepository userSystemRepository;
+	@Autowired
+	private UserSystemService service;
+	
 	public void instantiateTestDatabase() throws ParseException {
 
 		System.out.println("carregando o banco...");
+		
+		UserSystem admin = new UserSystem(Perfil.ADMIN);
+		admin.setSenha("123");
+		admin.setNome("ricardo");
+		admin.setEmail("admin1@admin.com");
+		admin = service.encode(admin);
+		userSystemRepository.save(admin);
+		
+		UserSystem client = new UserSystem(Perfil.CLIENTE);
+		client.setSenha("456");
+		client.setNome("julio");
+		client.setEmail("client1@client.com");
+		client = service.encode(client);
+		userSystemRepository.save(client);
+		
+		
+		UserSystem both = new UserSystem();
+		both.setSenha("789");
+		both.setNome("both");
+		both = service.encode(both);
+		both.setEmail("admin@client.com");
+		both.addPerfil(Perfil.CLIENTE);
+		both.addPerfil(Perfil.ADMIN);
+		userSystemRepository.save(both);
+		
 		DateFormat f = DateFormat.getDateInstance();
 		Date d1 = f.parse("26/11/2015");
 		Date d2 = f.parse("25/12/2015");
