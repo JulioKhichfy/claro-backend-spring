@@ -5,16 +5,15 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.claro.julio.domain.CellPhoneDevice;
 import com.claro.julio.domain.UserSystem;
 import com.claro.julio.domain.enums.Perfil;
-import com.claro.julio.domain.CellPhoneDevice;
-import com.claro.julio.repositories.UserSystemRepository;
 import com.claro.julio.repositories.CellPhoneDeviceRepository;
+import com.claro.julio.repositories.UserSystemRepository;
 
 @Service
 public class DBService {
